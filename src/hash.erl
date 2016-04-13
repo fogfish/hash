@@ -19,6 +19,7 @@
 
 -export([fnv32/1, fnv32a/1, fnv32m/1]).
 -export([seq31/1, seq32/1]).
+-export([fold32/1]).
 
 %%
 %% Fowler–Noll–Vo
@@ -31,6 +32,9 @@ fnv32m(X) -> hash_fnv:fnv32m(s(X)).
 seq31(X) when is_integer(X) -> hash_seq:seq31(X).
 seq32(X) when is_integer(X) -> hash_seq:seq32(X).
 
+%%
+%% XOR folding
+fold32(X) -> hash_fold:fold32(s(X)).
 
 %%%----------------------------------------------------------------------------   
 %%%

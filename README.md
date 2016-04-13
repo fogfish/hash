@@ -55,6 +55,15 @@ hash:seq31(1).
 hash:seq32(1).
 ```
 
+### `fold` - XOR folding
+
+The function fold data structure to single integer using XOR.
+
+```
+hash:fold32("erlang").
+```
+
+
 
 ## How to Contribute
 
