@@ -41,9 +41,9 @@ hash:fnv32("erlang").
 The FNV hash was designed for fast hash table and checksum use, not cryptography. The library implements both variants (FNV-1, FNV-1a) of original function and its improved version proposed by Bret Mulvey (FNV-1m) suitable for hashing in text processing applications.
 
 ```
-hash:fnv32("erlang").
-hash:fnv32a("erlang").
-hash:fnv32m("erlang").
+-spec fnv32(_) -> integer().
+-spec fnv32a(_) -> integer().
+-spec fnv32m(_) -> integer().
 ```
 
 ### `seq` -  Additive Congruential Random Number (ACORN)
@@ -51,8 +51,8 @@ hash:fnv32m("erlang").
 The additive congruential random number generator, This is a special case of a multiple recursive generator. It is used to generate identical sequences on any machine.
 
 ```
-hash:seq31(1).
-hash:seq32(1).
+-spec seq31(integer()) -> integer().
+-spec seq32(integer()) -> integer().
 ```
 
 ### `fold` - XOR folding
@@ -60,7 +60,7 @@ hash:seq32(1).
 The function fold data structure to single integer using XOR.
 
 ```
-hash:fold32("erlang").
+-spec fold32(_) -> integer().
 ```
 
 
