@@ -63,6 +63,12 @@ The function fold data structure to single integer using XOR.
 -spec fold32(_) -> integer().
 ```
 
+### `buz` - Cyclic polynomial (BuzHash)
+
+The hash function is based on cyclic polynomial belongs to class of rolling hash functions. It has the benefit of avoiding multiplications, using barrel shifts instead. The popular applications are finger-printing, content sync.
+
+```
+```
 
 
 ## How to Contribute

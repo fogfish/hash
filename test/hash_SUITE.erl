@@ -32,7 +32,7 @@
 %%
 %% unit tests
 -export([
-   fnv/1, seq/1, fold/1
+   fnv/1, seq/1, fold/1, buz/1
 ]).
 
 %%%----------------------------------------------------------------------------   
@@ -48,7 +48,7 @@ all() ->
 groups() ->
    [
       {hf, [parallel], 
-         [fnv, seq, fold]}
+         [fnv, seq, fold, buz]}
    ].
 
 %%%----------------------------------------------------------------------------   
@@ -81,14 +81,26 @@ fnv(_Config) ->
    88406154   = hash:fnv32a("erlang"),
    2424231706 = hash:fnv32m("erlang").
 
+
 seq(_Config) ->
    1073741824 = hash:seq31(1),
    536870912  = hash:seq31( hash:seq31(1) ),
    1073741824 = hash:seq32(1),
    536870912  = hash:seq32( hash:seq32(1) ).
 
+
 fold(_Config) ->
    1701970438 = hash:fold32("erlang").
+
+
+buz(_Config) ->
+   A0 = hash:buz32(4),
+   { 97, A1} = hash:buz32($a, A0),
+   {160, A2} = hash:buz32($b, A1),
+   {291, A3} = hash:buz32($c, A2),
+   {546, A4} = hash:buz32($d, A3),
+   {561,  _} = hash:buz32($e, A4).
+
 
 
 
