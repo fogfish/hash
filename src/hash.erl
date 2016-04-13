@@ -18,6 +18,7 @@
 -module(hash).
 
 -export([fnv32/1, fnv32a/1, fnv32m/1]).
+-export([seq31/1, seq32/1]).
 
 %%
 %% Fowler–Noll–Vo
@@ -25,6 +26,10 @@ fnv32(X)  -> hash_fnv:fnv32(s(X)).
 fnv32a(X) -> hash_fnv:fnv32a(s(X)).
 fnv32m(X) -> hash_fnv:fnv32m(s(X)).
 
+%%
+%% Uniformly distributed pseudo-random sequences
+seq31(X) when is_integer(X) -> hash_seq:seq31(X).
+seq32(X) when is_integer(X) -> hash_seq:seq32(X).
 
 
 %%%----------------------------------------------------------------------------   

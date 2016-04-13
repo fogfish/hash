@@ -2,7 +2,7 @@
 
 The library implements various non-crypto hash functions.
 
-
+[![Build Status](https://secure.travis-ci.org/fogfish/hash.svg?branch=master)](http://travis-ci.org/fogfish/hash)
 
 ## Inspiration 
 
@@ -36,7 +36,7 @@ hash:fnv32("erlang").
 ## Supported hash functions
 
 
-### Fowler–Noll–Vo 
+### `fnv` - Fowler–Noll–Vo 
 
 The FNV hash was designed for fast hash table and checksum use, not cryptography. The library implements both variants (FNV-1, FNV-1a) of original function and its improved version proposed by Bret Mulvey (FNV-1m) suitable for hashing in text processing applications.
 
@@ -46,6 +46,14 @@ hash:fnv32a("erlang").
 hash:fnv32m("erlang").
 ```
 
+### `seq` -  Additive Congruential Random Number (ACORN)
+
+The additive congruential random number generator, This is a special case of a multiple recursive generator. It is used to generate identical sequences on any machine.
+
+```
+hash:seq31(1).
+hash:seq32(1).
+```
 
 
 ## How to Contribute
