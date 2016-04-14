@@ -79,6 +79,20 @@ Every consequent call request the previous state and element to hash, it returns
 -spec buz32(_, _) -> {integer(), _}.
 ```
 
+### `pbkdf2` - Password-Based Key Derivation Function 2
+
+The function applies recursively a HMAC to password along with salt to produce a derived key usable as a cryptographic key in subsequent operations.
+
+```
+-spec pbkdf2(prf(), pass(), salt(), c(), dklen()) -> binary().
+```
+
+* `prf()` is a pseudo-random function (hash algorithm for [HMAC](http://erldocs.com/17.0/crypto/crypto.html?i=0&search=crypto:hma#hmac/3))
+* `pass()` is the master password used for key derivation
+* `salt()` is sequence of bits
+* `c()` number of iterations to apply the function
+* `dklen()` the length of desired derive key in bits
+
 
 ## How to Contribute
 

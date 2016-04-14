@@ -21,6 +21,7 @@
 -export([seq31/1, seq32/1]).
 -export([fold32/1]).
 -export([buz32/1, buz32/2]).
+-export([pbkdf2/5]).
 
 
 %%
@@ -57,6 +58,13 @@ fold32(X) -> hash_fold:fold32(s(X)).
 
 buz32(X) -> hash_buz:buz32(X).
 buz32(X, Hash) -> hash_buz:buz32(X, Hash).
+
+%%
+%% Password-Based Key Derivation Function 2
+-spec pbkdf2(atom(), binary(), binary(), integer(), integer()) -> binary().
+
+pbkdf2(PRF, Pass, Salt, C, DkLen) ->  hash_pbkdf2:pbkdf2(PRF, Pass, Salt, C, DkLen).
+
 
 
 %%%----------------------------------------------------------------------------   

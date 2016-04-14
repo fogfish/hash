@@ -32,7 +32,7 @@
 %%
 %% unit tests
 -export([
-   fnv/1, seq/1, fold/1, buz/1
+   fnv/1, seq/1, fold/1, buz/1, pbkdf2/1
 ]).
 
 %%%----------------------------------------------------------------------------   
@@ -48,7 +48,7 @@ all() ->
 groups() ->
    [
       {hf, [parallel], 
-         [fnv, seq, fold, buz]}
+         [fnv, seq, fold, buz, pbkdf2]}
    ].
 
 %%%----------------------------------------------------------------------------   
@@ -102,5 +102,14 @@ buz(_Config) ->
    {561,  _} = hash:buz32($e, A4).
 
 
+pbkdf2(_Config) ->
+   %% see https://www.ietf.org/rfc/rfc6070.txt
+   <<"0c60c80f961f0e71f3a9b524af6012062fe037a6">> = btoh( hash:pbkdf2(sha, <<"password">>, <<"salt">>, 1, 20 * 8) ),
+   <<"ea6c014dc72d6f8ccd1ed92ace1d41f0d8de8957">> = btoh( hash:pbkdf2(sha, <<"password">>, <<"salt">>, 2, 20 * 8) ),
+   <<"4b007901b765489abead49d926f721d065a429c1">> = btoh( hash:pbkdf2(sha, <<"password">>, <<"salt">>, 4096, 20 * 8) ).
+   % takes too long for daily test but good for hash validation
+   % <<"eefe3d61cd4da4e4e9945b3d6ba2158c2634e984">> = btoh( hash:pbkdf2(sha, <<"password">>, <<"salt">>, 16777216, 20 * 8) ).
 
 
+btoh(X) ->
+   << <<(if A < 10 -> $0 + A; A >= 10 -> $a + (A - 10) end):8>> || <<A:4>> <=X >>.
