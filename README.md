@@ -96,7 +96,7 @@ The function applies recursively a HMAC to password along with salt to produce a
 
 ### `geo` - Geo Hash
 
-The function subdivide the space into buckets using z-order curve. It allows to move geo-graphical coordinate domain to sting domain, offering arbitrary precision (reducing the size by removing tail of string).
+The function subdivide the space into buckets using z-order curve. It allows to move geo-graphical coordinate domain to string domain, offering arbitrary precision (reducing the size by removing tail of string).
 
 ```
 -spec geo(binary()) -> {lat(), lng()}.
