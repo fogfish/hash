@@ -94,6 +94,17 @@ The function applies recursively a HMAC to password along with salt to produce a
 * `dklen()` the length of desired derive key in bits
 
 
+### `geo` - Geo Hash
+
+The function subdivide the space into buckets using z-order curve. It allows to move geo-graphical coordinate domain to sting domain, offering arbitrary precision (reducing the size by removing tail of string).
+
+```
+-spec geo(binary()) -> {lat(), lng()}.
+-spec geo({lat(), lng()}) -> binary().
+-spec geo(lat(), lng()) -> binary().
+```  
+
+
 ## How to Contribute
 
 `hash` is Apache 2.0 licensed and accepts contributions via GitHub pull requests.

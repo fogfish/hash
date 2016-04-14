@@ -32,7 +32,7 @@
 %%
 %% unit tests
 -export([
-   fnv/1, seq/1, fold/1, buz/1, pbkdf2/1
+   fnv/1, seq/1, fold/1, buz/1, pbkdf2/1, geo/1
 ]).
 
 %%%----------------------------------------------------------------------------   
@@ -48,7 +48,7 @@ all() ->
 groups() ->
    [
       {hf, [parallel], 
-         [fnv, seq, fold, buz, pbkdf2]}
+         [fnv, seq, fold, buz, pbkdf2, geo]}
    ].
 
 %%%----------------------------------------------------------------------------   
@@ -110,6 +110,11 @@ pbkdf2(_Config) ->
    % takes too long for daily test but good for hash validation
    % <<"eefe3d61cd4da4e4e9945b3d6ba2158c2634e984">> = btoh( hash:pbkdf2(sha, <<"password">>, <<"salt">>, 16777216, 20 * 8) ).
 
-
 btoh(X) ->
    << <<(if A < 10 -> $0 + A; A >= 10 -> $a + (A - 10) end):8>> || <<A:4>> <=X >>.
+
+
+geo(_Config) ->
+   <<"u4pruydqqvjh">> = hash:geo(hash:geo(<<"u4pruydqqvjh">>)),
+   <<"gcpuuz94kkp5">> = hash:geo(hash:geo(<<"gcpuuz94kkp5">>)).
+
