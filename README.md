@@ -38,12 +38,14 @@ hash:fnv32("erlang").
 
 ### `fnv` - Fowler–Noll–Vo 
 
-The FNV hash was designed for fast hash table and checksum use, not cryptography. The library implements both variants (FNV-1, FNV-1a) of original function and its improved version proposed by Bret Mulvey (FNV-1m) suitable for hashing in text processing applications.
+The FNV hash was designed for fast hash table and checksum use, not cryptography. The library implements both variants (FNV-1, FNV-1a) of original function and its improved version proposed by Bret Mulvey (FNV-1m) suitable for hashing in text processing applications. 
 
 ```
 -spec fnv32(_) -> integer().
 -spec fnv32a(_) -> integer().
 -spec fnv32m(_) -> integer().
+-spec fnv128(_) -> integer().
+-spec fnv128a(_) -> integer().
 ```
 
 ### `seq` -  Additive Congruential Random Number (ACORN)
