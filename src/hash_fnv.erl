@@ -18,6 +18,7 @@
 -module(hash_fnv).
 
 -export([fnv32/1, fnv32a/1, fnv32m/1]).
+-export([fnv64/1, fnv64a/1]).
 -export([fnv128/1, fnv128a/1]).
 
 %%
@@ -25,6 +26,12 @@
 -define(FNV32_PRIME, 16777619).
 -define(FNV32_INIT,  2166136261).
 -define(FNV32_MASK,  16#FFFFFFFF).
+
+%%
+%%  FNV64 initial state
+-define(FNV64_PRIME, 1099511628211).
+-define(FNV64_INIT, 14695981039346656037).
+-define(FNV64_MASK, 16#FFFFFFFFFFFFFFFF).
 
 %%
 %%  FNV128 initial state
@@ -73,6 +80,30 @@ fnv32m(<<>>, State) ->
    Hash4 = (Hash3 bxor (Hash3 bsr 17)) band ?FNV32_MASK,
    Hash5 = (Hash4 + (Hash4 bsl 5)) band ?FNV32_MASK,
    Hash5.
+
+%%
+%% @see http://www.isthe.com/chongo/tech/comp/fnv/
+fnv64(Data) ->
+   fnv64(Data, ?FNV64_INIT).
+
+fnv64(<<H:8, T/bytes>>, State) ->
+   Hash  = ( ( State * ?FNV64_PRIME ) band ?FNV64_MASK ) bxor H,
+   fnv64(T, Hash);
+
+fnv64(<<>>, State) ->
+   State.
+
+%%
+%%
+fnv64a(Data) ->
+   fnv64a(Data, ?FNV64_INIT).
+
+fnv64a(<<H:8, T/bytes>>, State) ->
+   Hash  =  ( ( State bxor H ) * ?FNV64_PRIME ) band ?FNV64_MASK,
+   fnv64a(T, Hash);
+
+fnv64a(<<>>, State) ->
+   State.
 
 %%
 %% @see http://www.isthe.com/chongo/tech/comp/fnv/
