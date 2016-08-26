@@ -44,6 +44,8 @@ The FNV hash was designed for fast hash table and checksum use, not cryptography
 -spec fnv32(_) -> integer().
 -spec fnv32a(_) -> integer().
 -spec fnv32m(_) -> integer().
+-spec fnv64(_) -> integer().
+-spec fnv64a(_) -> integer().
 -spec fnv128(_) -> integer().
 -spec fnv128a(_) -> integer().
 ```
