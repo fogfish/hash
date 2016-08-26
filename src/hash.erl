@@ -18,6 +18,7 @@
 -module(hash).
 
 -export([fnv32/1, fnv32a/1, fnv32m/1]).
+-export([fnv64/1, fnv64a/1]).
 -export([fnv128/1, fnv128a/1]).
 -export([seq31/1, seq32/1]).
 -export([fold32/1]).
@@ -31,12 +32,16 @@
 -spec fnv32(_) -> integer().
 -spec fnv32a(_) -> integer().
 -spec fnv32m(_) -> integer().
+-spec fnv64(_) -> integer().
+-spec fnv64a(_) -> integer().
 -spec fnv128(_) -> integer().
 -spec fnv128a(_) -> integer().
 
 fnv32(X)  -> hash_fnv:fnv32(s(X)).
 fnv32a(X) -> hash_fnv:fnv32a(s(X)).
 fnv32m(X) -> hash_fnv:fnv32m(s(X)).
+fnv64(X)  -> hash_fnv:fnv64(s(X)).
+fnv64a(X) -> hash_fnv:fnv64a(s(X)).
 fnv128(X)  -> hash_fnv:fnv128(s(X)).
 fnv128a(X) -> hash_fnv:fnv128a(s(X)).
 
