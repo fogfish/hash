@@ -23,7 +23,9 @@
 -export([buz32/1, buz32/2]).
 -export([pbkdf2/5]).
 -export([geo/1, geo/2]).
+-export([aws_v4/4, aws_v4/5, aws_v4_sign/2, aws_v4_sign/3, aws_v4_sign/4, aws_v4_sign/5, aws_v4_sign/7]).
 
+-export([s/1]).
 
 %%
 %% Fowler–Noll–Vo
@@ -78,11 +80,56 @@ geo({_, _} = X) -> hash_geo:encode(X).
 
 geo(Lat, Lng) -> hash_geo:encode({Lat, Lng}).
 
+
+%%
+%% aws v4 signature 
+-spec aws_v4(binary(), binary(), atom(), atom()) -> _.
+-spec aws_v4(binary(), binary(), binary(), atom(), atom()) -> _.
+
+aws_v4(Access, Secret, Region, Service) ->
+   hash:aws_v4(Access, Secret, undefined, Region, Service).
+
+aws_v4(Access, Secret, Token, Region, Service) ->
+   hash_aws_v4:new(Access, Secret, Token, Region, Service).
+
+
+aws_v4_sign(Host, Hash) ->
+   hash_aws_v4:sign('GET', Host, undefined, undefined, [], undefined, Hash).
+
+aws_v4_sign(Host, Path, Hash) ->
+   hash_aws_v4:sign('GET', Host, Path, undefined, [], undefined, Hash).
+
+aws_v4_sign(Host, Path, Query, Hash) ->
+   hash_aws_v4:sign('GET', Host, Path, Query, [], undefined, Hash).
+
+aws_v4_sign(Host, Path, Query, Head, Hash) ->
+   hash_aws_v4:sign('GET', Host, Path, Query, Head, undefined, Hash).
+
+aws_v4_sign(Mthd, Host, Path, Query, Head, Data, Hash) ->
+   hash_aws_v4:sign(Mthd, Host, Path, Query, Head, Data, Hash).
+
+
 %%%----------------------------------------------------------------------------   
 %%%
 %%% private
 %%%
 %%%----------------------------------------------------------------------------   
 
-s(X) when is_binary(X) -> X;
-s(X) when is_list(X)   -> iolist_to_binary(X).
+%%
+%%
+-spec s(_) -> binary().
+
+s(undefined)            -> <<>>;
+s(X) when is_binary(X)  -> btos(X);
+s(X) when is_atom(X)    -> atos(X);
+s(X) when is_list(X)    -> ltos(X);
+s(X) when is_integer(X) -> itos(X);
+s(X) when is_float(X)   -> ftos(X).
+
+btos(X) -> X.
+atos(X) -> atom_to_binary(X, utf8).
+ltos(X) -> iolist_to_binary(X).
+itos(X) -> ltos(itol(X)).
+ftos(X) -> ltos(io_lib:format("~.9f", [X])).
+
+itol(X) -> integer_to_list(X).

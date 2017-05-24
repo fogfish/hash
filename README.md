@@ -104,6 +104,31 @@ The function subdivide the space into buckets using z-order curve. It allows to 
 -spec geo(lat(), lng()) -> binary().
 ```  
 
+### AWS Signature Version 4
+
+The function implements [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html). 
+
+```
+-spec aws_v4(access(), secret(), token(), region(), service()) -> hash().
+-spec aws_v4_sign(method(), host(), path(), query(), headers(), payload(), hash()) -> [headers()]
+```
+
+You need to seed a hash state with your AWS credentials
+```erlang
+Hash = hash:aws_v4(<<"YOURKEY">>, <<"YOURSECRET">>, 'us-east-1', 'es'),
+```
+
+The hash state is then used at each iteration to sign you HTTP request
+```erlang
+hash:aws_v4_sign(
+   'POST',                                   %% http method
+   "search-foo.us-east-1.es.amazonaws.com",  %% host 
+   "/mypath",                                %% path
+   [{version, 1}, {foo, <<"bar">>}],         %% query parameters  
+   [{'Content-Type', <<"application/x-www-form-urlencoded">>}], %% list of http headers to sign
+   <<"foo=bar">>,                            %% payload
+   Hash).                                    %% hash state
+```
 
 ## How to Contribute
 

@@ -2,7 +2,7 @@
 %%   GeoHash https://en.wikipedia.org/wiki/Geohash
 -module(hash_geo).
 
--export([encode/1, decode/1, t/0]).
+-export([encode/1, decode/1]).
 
 %%
 %% latitude grid table
@@ -196,31 +196,3 @@ encode_geo(X, [M | Tm], A, B)
 encode_geo(X, [M | Tm], A, B) ->
    [0 | encode_geo(X, Tm, A, B - M)].
 
-
-
-t() ->
-   % encode_geo(42.60498046875, ?LAT, -90, 90).
-   t(lists:duplicate(31, 1), -90, 90).
-
-t([_ | T], A, B) ->
-   Val = (B - A) / 2,
-   io:format("~p,~n", [Val]),
-   t(T, A + Val, B);
-
-t([], A, B) ->
-   Val = (B - A) / 2,
-   io:format("~p~n", [Val]).
-
-
-
-
-% encode(X) ->
-%    << <<(enc(X)):8>> || <<X:5>> <= pad(X) >>.
-
-% decode(X) ->
-%    << <<
-
-
-% pad(Bin) ->
-%    Pad = (size(Bin) * 8) rem 5,
-%    <<Bin/binary, 0:Pad>>.
