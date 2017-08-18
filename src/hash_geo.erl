@@ -101,7 +101,14 @@ decode(X) ->
 %%
 %%
 decode_base32(X) ->
-   << <<(decode32(V)):5>> || <<V:8>> <= X >>.   
+   decode_base32_pad(<< <<(decode32(V)):5>> || <<V:8>> <= X >>).
+
+decode_base32_pad(X)
+ when bit_size(X) rem 2 =:= 0 ->
+   X;
+decode_base32_pad(X) ->
+   <<X/bitstring, 0:1>>.
+
 
 decode32($0) ->  0;
 decode32($1) ->  1;
