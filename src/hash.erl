@@ -24,7 +24,7 @@
 -export([fold32/1]).
 -export([buz32/1, buz32/2]).
 -export([pbkdf2/5]).
--export([geo/1, geo/2]).
+-export([geo/1, geo/2, geo_proximity/1]).
 -export([aws_v4/4, aws_v4/5, aws_v4_sign/2, aws_v4_sign/3, aws_v4_sign/4, aws_v4_sign/5, aws_v4_sign/7]).
 
 -export([s/1]).
@@ -89,6 +89,14 @@ geo(X) when is_binary(X) -> hash_geo:decode(X);
 geo({_, _} = X) -> hash_geo:encode(X).
 
 geo(Lat, Lng) -> hash_geo:encode({Lat, Lng}).
+
+%%
+%% Proximity of GeoHash
+-spec geo_proximity(binary()) -> #{}.
+
+geo_proximity(Hash) ->
+   hash_geo:proximity(Hash).
+
 
 
 %%
