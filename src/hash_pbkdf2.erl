@@ -18,6 +18,7 @@
 -module(hash_pbkdf2).
 
 -export([pbkdf2/5]).
+-compile({no_auto_import,[ceil/1]}).
 
 pbkdf2(PRF, Pass, Salt, C, DkLen) ->
    Init = crypto:hmac(PRF, Pass, Salt),
